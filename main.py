@@ -2,26 +2,23 @@ from window import Window
 from point import Point
 from line import Line
 from cell import Cell
+from maze import Maze
 
 def main():
-    win = Window(800, 600)
-    '''l = Line(Point(50, 50), Point(400, 400))
-    new_line = Line(Point(1, 300), Point(500, 300))
-    win.draw_line(new_line, "red")
-    win.draw_line(l, "black")'''
-    mehtul_bawkses = Cell(win)
-    mehtul_bawkses.has_bottom_wall = True
-    mehtul_bawkses.has_top_wall = True
-    mehtul_bawkses.has_left_wall = True
-    #mehtul_bawkses.has_right_wall = True
-    mehtul_bawkses.draw(50, 100, 300, 350)
-    mehtul_bawkses2 = Cell(win)
-    mehtul_bawkses2.has_bottom_wall = True
-    mehtul_bawkses2.has_top_wall = True
-    #mehtul_bawkses2.has_left_wall = True
-    mehtul_bawkses2.has_right_wall = True
-    mehtul_bawkses2.draw(310, 100, 560, 350)
-    mehtul_bawkses.draw_move(mehtul_bawkses2)
-    win.wait_for_close()
+    num_rows = 12
+    num_cols = 16
+    margin = 50
+    screen_x = 800
+    screen_y = 600
+    cell_size_x = (screen_x - 2 * margin) / num_cols
+    cell_size_y = (screen_y - 2 * margin) / num_rows
+    win = Window(screen_x, screen_y)
 
+    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
+    check = maze.solve()
+    win.wait_for_close()
+    if check:
+        print("You found the way out!")
+    else:
+        print("There was no way out...")
 main()
